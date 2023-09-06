@@ -8,15 +8,14 @@ pball=0
 pover=0
 uscore=0
 pcscore=0
-innings=0
 def batting(over=5):
     global uwicket
     global uball
     global uover
     global uscore
-    global innings
+    innings=0
     print("You can hit anything between 0 to 6. Hit hard!")
-    input("Press enter to continue...")
+    input("Press enter to start...")
     while uwicket<11 and innings==0:
         for i in range(over):
             for j in range(6):
@@ -42,8 +41,39 @@ def batting(over=5):
         else:
             print(uscore)
             #MORE TO BE ADDED
-def bowling(over):
-    print("Under maintenance!")
+def bowling(over=5):
+    global pball
+    global pwicket
+    global pover
+    global pcscore
+    innings=0
+    print("Bowl between 0 to 6. Take as many wickets by guessing the hit of batsman.")
+    input("Press enter to start...")
+    while pwicket<11 and innings==0:
+        for k in range(over):
+            for l in range(6):
+                userbowl=int(input("BOWL->"))
+                if userbowl>6 or userbowl<0 or userbowl=='':
+                    print("Error buddy! try to play safe next time.")
+                    bowling()
+                cpubat=r.randint(0,6)
+                if userbowl==cpubat:
+                    pwicket+=1
+                    print(f"It's an OUT! You have taken {pwicket} wickets in {pball} balls.")
+                else:
+                    pcscore+=userbowl
+                    print(f"Opponent has scored {cpubat} scores in {pwicket} wickets. Now, {5-pball} balls left.")
+                pball+=1
+            pball=0
+            pover+=1
+            print(f"The over has ended. You have taken {pwicket} wickets and opponent has scored {pcscore} scores.")
+        print(f"Final score of innings is {pwicket} wickets by {pcscore} of opponenet.")
+        if innings==0: 
+            innings+=1
+            batting(over)
+        else:
+            print(pcscore)
+            #MORE TO BE ADDED
 
 def toss():
     #head tail and bat or ball choosing function
